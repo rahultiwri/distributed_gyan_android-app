@@ -1,0 +1,45 @@
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+build/
+
+# Android
+.gradle/
+android/.gradle/
+android/.kotlin/
+android/build/
+android/app/build/
+android/app/.cxx/
+android/local.properties
+
+# iOS
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/ephemeral/
+ios/Flutter/.last_build_id
+ios/Flutter/Generated.xcconfig
+
+# IDE
+.idea/
+*.iml
+
+# macOS
+.DS_Store
+
+# Android generated/native
+.cxx/
+.externalNativeBuild/
+captures/
+
+# Logs
+*.log
+
+# Keystore / signing files
+*.jks
+*.keystore
+
+# Local configuration
+local.properties
