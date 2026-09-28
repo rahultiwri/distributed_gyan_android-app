@@ -7,6 +7,8 @@ import '../constants/application_constant.dart';
 import '../services/preference_service.dart';
 import '../models/payment_history_ent.dart';
 
+import 'package:flutter/services.dart';
+
 class BalanceResponse {
   final String balance;
   final String drcr;
@@ -479,6 +481,9 @@ class PaymentService {
         '${baseUrl.endsWith('/') ? baseUrl : '$baseUrl/'}'
         '${ApplicationConstant.syncDataAsp}';
 
+    // testing purpose  //
+    // final url = 'https://demand.gyandairy.com/gyan/syncdata2.asp';
+
     debugPrint('========== GET PG TOKEN ==========');
     debugPrint('URL: $url');
     debugPrint('CMD: getpgtoken');
@@ -491,7 +496,7 @@ class PaymentService {
       Uri.parse(url),
       body: {
         'cmd': 'getpgtoken',
-        'imei': imei.trim(),
+        'imei':  imei.trim(),      // production 'b4d3ad85-bbda-4fb1-a37e-0bac4e677d0a',
         'amount': amount.trim(),
        'distcode': distCode.trim(),
       },
@@ -635,5 +640,41 @@ class PaymentService {
       industryTypeId: industryTypeId,
     );
   }
+  // ==========================================================
+  // START PAYTM TRANSACTION
+  // Native Android Paytm SDK bridge
+  // ==========================================================
+
+  static const MethodChannel _paytmChannel =
+  MethodChannel('gyan_milk/paytm');
+
+  static Future<dynamic> startPaytmTransaction({
+    required PaymentTokenResponse paymentToken,
+    required String amount,
+  }) async {
+    try {
+      final response =
+      await _paytmChannel.invokeMethod(
+        'startPaytmTransaction',
+        {
+          'orderId': paymentToken.orderId,
+          'mid': paymentToken.mid,
+          'token': paymentToken.token,
+          'amount': amount,
+        },
+      );
+
+      return response;
+    } on PlatformException catch (e) {
+      throw Exception(
+        e.message ?? 'Unable to start Paytm transaction.',
+      );
+    } catch (e) {
+      throw Exception(
+        'Unable to start Paytm transaction: $e',
+      );
+    }
+  }
+
 
 }

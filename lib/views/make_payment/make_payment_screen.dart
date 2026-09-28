@@ -280,9 +280,6 @@ class _MakePaymentScreenState extends State<MakePaymentScreen> {
 
       // ======================================================
       // HTTP 200 + STATUS FAIL
-      //
-      // Server ka msg directly show hoga.
-      // Retry nahi hoga.
       // ======================================================
 
       if (paymentToken.status.toLowerCase() != 'success') {
@@ -308,16 +305,23 @@ class _MakePaymentScreenState extends State<MakePaymentScreen> {
       debugPrint('========================================');
 
       // ======================================================
-      // NEXT STEP:
-      // PAYTM SDK
+      // START PAYTM SDK
       // ======================================================
+
+      final paytmResponse =
+      await PaymentService.startPaytmTransaction(
+        paymentToken: paymentToken,
+        amount: amount,
+      );
+
+      debugPrint('========================================');
+      debugPrint('PAYTM SDK RESPONSE');
+      debugPrint('$paytmResponse');
+      debugPrint('========================================');
+
     } catch (e) {
       // ======================================================
       // NON-200 / EMPTY RESPONSE / API EXCEPTION
-      //
-      // Loader stop
-      // Error popup
-      // Retry available
       // ======================================================
 
       if (!mounted) {

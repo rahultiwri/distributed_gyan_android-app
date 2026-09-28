@@ -47,3 +47,7 @@ kotlin {
 flutter {
     source = "../.."
 }
+
+dependencies {
+    implementation("com.paytm.appinvokesdk:appinvokesdk:1.6.15")
+}

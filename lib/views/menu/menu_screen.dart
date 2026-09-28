@@ -2076,7 +2076,7 @@ class _MenuScreenState extends State<MenuScreen> {
         children: [
           // Background image
           Image.asset(
-            'assets/images/menu1.png',
+            'assets/images/back6.png',
             fit: BoxFit.cover,
           ),
 
